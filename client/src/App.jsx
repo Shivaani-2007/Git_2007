@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
+const API_BASE_URL = 'https://student-registration-o9i9.onrender.com'
 const companies = [
   { name: 'TCS', detail: 'Technology services' }, { name: 'Infosys', detail: 'Digital innovation' },
   { name: 'Wipro', detail: 'IT consulting' }, { name: 'HCLTech', detail: 'Engineering & R&D' },
@@ -29,7 +30,7 @@ function App() {
     event.preventDefault()
     setSubmitError('')
     try {
-      const response = await fetch('http://localhost:5000/api/registrations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, companies: selectedCompanies }) })
+      const response = await fetch(`${API_BASE_URL}/api/registrations`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, companies: selectedCompanies }) })
       if (!response.ok) throw new Error('Registration could not be saved')
       const registration = await response.json()
       setRegistrations((current) => [registration, ...current])
